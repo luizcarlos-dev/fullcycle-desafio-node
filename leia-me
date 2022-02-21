@@ -1,5 +1,7 @@
 --------------------------------------------------------
-Nesse desafio você colocará em prática o que aprendemos em relação a utilização do nginx como proxy reverso. A idéia principal é que quando um usuário acesse o nginx, o mesmo fará uma chamada em nossa aplicação node.js. Essa aplicação por sua vez adicionará um registro em nosso banco de dados mysql, cadastrando um nome na tabela people.
+Nesse desafio você colocará em prática o que aprendemos em relação a utilização do nginx como proxy reverso. 
+A idéia principal é que quando um usuário acesse o nginx, o mesmo fará uma chamada em nossa aplicação node.js.
+Essa aplicação por sua vez adicionará um registro em nosso banco de dados mysql, cadastrando um nome na tabela people.
 
 O retorno da aplicação node.js para o nginx deverá ser:
 
@@ -7,15 +9,36 @@ O retorno da aplicação node.js para o nginx deverá ser:
 
 - Lista de nomes cadastrada no banco de dados.
 
-Gere o docker-compose de uma forma que basta apenas rodarmos: docker-compose up -d que tudo deverá estar funcionando e disponível na porta: 8080.
+Gere o docker-compose de uma forma que basta apenas rodarmos: docker-compose up -d que tudo deverá estar funcionando e
+disponível na porta: 8080.
 
 Suba tudo em um repositório e faça a entrega.
-
 --------------------------------------------------------
 
-Desafio:
-- Colocar o Nginx na frente da imagem Node
-- Inserir um dado no Mysql (já está sendo feito)
-- Ao acessar o site: Apresentar FullCycle (OK); Apresentar o nome que foi cadastrado no banco de dados (select)
-
+--------------------------------------------------------
+Desafio:#
 - Entregar fonte Desafio no GIT
+--------------------------------------------------------
+
+--------------------------------------------------------
+COMANDOS:
+
+#Dockerfile
+>docker rm $(docker ps -a -q) -f
+>docker-compose up -d --build
+>docker logs app
+>docker-compose ps
+>Acessando CONTAINER NODE
+    >docker exec -it app bash
+    >ls
+    >node index.js
+    >localhost:3000/
+>Acessando CONTAINER MYSQL
+    >docker exec -it db bash
+    >mysql -uroot -p
+    >show databases;
+    >use nodedb;
+    >create table people(id int not null auto_increment, name varchar(255), primary key(id));
+    >desc people; 
+    >select * from people;   
+--------------------------------------------------------
