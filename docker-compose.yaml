@@ -12,7 +12,7 @@ services:
     volumes:
       - ./node:/usr/src/app
     tty: true
-    command: node index.js   
+    command: node index.js
     depends_on:
       - db
 
