@@ -4,7 +4,7 @@ services:
 
   app:
     build: 
-      context: node
+      context: ./node
     container_name: app
     entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
     networks:
@@ -12,9 +12,7 @@ services:
     volumes:
       - ./node:/usr/src/app
     tty: true
-    ports:
-      - "3000:3000"
-    # command: node index.js      
+    command: node index.js   
     depends_on:
       - db
 
@@ -31,6 +29,20 @@ services:
       - MYSQL_DATABASE=nodedb
     networks:
       - node-network
+
+  nginx:
+    build: 
+      context: ./nginx
+      dockerfile: Dockerfile
+    image: luizcarlos100/nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "8080:80"
+    networks:
+      - node-network
+    depends_on:
+      - app
 
 networks:
   node-network:

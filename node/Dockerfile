@@ -13,5 +13,3 @@ EXPOSE 3000
 
 #RUN npm install mysql --save
 #CMD ["node", "index.js"]
-
-

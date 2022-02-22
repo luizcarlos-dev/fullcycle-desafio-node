@@ -9,7 +9,7 @@ const config = {
 };
 const mysql = require('mysql')
 
-let peoples = `<table style="width:50%"><tr><th align="left" style="width:30%">Código</th><th align="left" style="width:70%">Name</th></tr>`;
+let peoples;
 
 function getConnection() {
 	const connection = mysql.createConnection(config)
@@ -18,17 +18,22 @@ function getConnection() {
 
 function inserirPeople() {
 	var date = new Date();
-	var name = "Luiz Carlos - " + date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear();
-	name += " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+	var dia = String(date.getDate()).padStart(2, '0');
+	var mes = String(date.getMonth() + 1).padStart(2, '0');
+	var ano = date.getFullYear();
+	var dataAtual = dia + '/' + mes + '/' + ano;
+	dataAtual += " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
+	var name = "Luiz Carlos - " + dataAtual;
 	const sql = `INSERT into people(name) values('${name}')`
-	console.log("INSERT: " + sql)
 	var connection = getConnection();
 	connection.query(sql)
 	connection.end()
 }
 
 function buscarPeople() {
+	peoples = `<table style="width:50%"><tr><th align="left" style="width:30%">Código</th><th align="left" style="width:70%">Name</th></tr>`;
+
 	const sql = `SELECT id, name FROM people ORDER BY id ASC`
 	var connection = getConnection();
 	connection.query(sql, function (err, rows) {
