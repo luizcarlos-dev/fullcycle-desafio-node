@@ -23,6 +23,8 @@ COMANDOS:
 >docker-compose up -d --build
 >docker logs app
 >docker-compose ps
+>sudo rm -rf mysql
+..REMOVER PASTA mysql
 >Acessando CONTAINER NODE
     >docker exec -it app bash
     >ls
@@ -33,7 +35,7 @@ COMANDOS:
     >mysql -uroot -p
     >show databases;
     >use nodedb;
-    >create table people(id int not null auto_increment, name varchar(255), primary key(id));
+    >create table if not exists people(id int not null auto_increment, name varchar(255), primary key(id));
     >desc people; 
     >select * from people;
 
